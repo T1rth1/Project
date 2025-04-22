@@ -12,8 +12,8 @@ import {
 
 const menuItems = [
   { name: "Dashboard", icon: faTachometerAlt, page: "/" },
-  { name: "Incident Management", icon: faExclamationTriangle, page: "incidents" },
-  { name: "User Management", icon: faUsers, page: "users" },
+  // { name: "Incident Management", icon: faExclamationTriangle, page: "incidents" },
+  // { name: "User Management", icon: faUsers, page: "users" },
   { name: "Settings", icon: faCog, page: "settings" },
 ];
 

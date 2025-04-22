@@ -6,7 +6,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
     <header className="bg-white dark:bg-gray-800 shadow-sm z-10">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-4">
-          <i class="faShieldAlt"></i>
+          <FontAwesomeIcon icon={faShieldAlt} className='text-xl text-blue-600'/>
           <h1 className="text-xl font-bold text-gray-800 dark:text-white">AWS Security Dashboard</h1>
         </div>
         
@@ -30,7 +30,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
             />
           </button>
           
-          <button 
+          {/* <button 
             onClick={toggleDarkMode}
             className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
           >
@@ -38,7 +38,7 @@ export default function Header({ darkMode, toggleDarkMode }) {
               icon={darkMode ? faSun : faMoon} 
               className="text-gray-600 dark:text-gray-300" 
             />
-          </button>
+          </button> */}
           
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold">
