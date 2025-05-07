@@ -15,10 +15,10 @@ export default function Dashboard() {
         {/* <h2 className="text-xl font-semibold mb-2">Threat Analysis</h2> */}
         <Charts />
       </div>
-      <div className="mb-6">
+      {/* <div className="mb-6"> */}
         {/* <h2 className="text-xl font-semibold mb-2">Live Security Events</h2> */}
-        <Events />
-      </div>
+        {/* <Events />
+      </div> */}
       {/* <div className="mb-6">
         <h2 className="text-xl font-semibold mb-2">AI Security Insights</h2>
         <AIInsights />

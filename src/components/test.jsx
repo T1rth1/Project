@@ -119,10 +119,10 @@ export default function TicketManagement() {
 
   // Map FreshService priorities to severity levels
   const priorityToSeverity = {
-    4: 'critical',
-    3: 'high',
-    2: 'medium',
-    1: 'low'
+    1: 'critical',
+    2: 'high',
+    3: 'medium',
+    4: 'low'
   };
 
   // Map FreshService status to our status
@@ -238,13 +238,13 @@ export default function TicketManagement() {
   const filteredTickets = tickets
     .filter(ticket => {
       const matchesSearch = ticket.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      (ticket?.assignedTo && typeof ticket.assignedTo === 'string' && ticket.assignedTo.toLowerCase().includes(searchTerm.toLowerCase()));
-
-        const matchesStatus = !filters.status || ticket.status === filters.status;
-        const matchesPriority = !filters.priority || ticket.severity === filters.priority;
-        const matchesAgent = !filters.agent_id || ticket.assignedTo === filters.agent_id;
-
-        return matchesSearch && matchesStatus && matchesPriority && matchesAgent;
+                          (ticket.assignedTo && ticket.assignedTo.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      const matchesStatus = !filters.status || ticket.status === filters.status;
+      const matchesPriority = !filters.priority || ticket.severity === filters.priority;
+      const matchesAgent = !filters.agent_id || ticket.assignedTo === filters.agent_id;
+      
+      return matchesSearch && matchesStatus && matchesPriority && matchesAgent;
     })
     .sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key]) {

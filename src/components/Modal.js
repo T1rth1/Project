@@ -1,86 +1,115 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faExclamationTriangle, faUser, faCalendarAlt, faClipboardList } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState } from 'react';
 
-export default function Modal({ incident, onClose }) {
-  if (!incident) return null;
+const Modal = ({ ticket, onClose }) => {
+  const [agent, setAgent] = useState(null);
+  console.log("ticket from modal", ticket)
+  // useEffect(() => {
+  //   const fetchAgent = async () => {
+  //     if (ticket && ticket.responder_id) {
+  //       try {
+  //         const response = await fetch(
+  //           `https://cloudthattechnologiespvtlt.freshservice.com/api/v2/agents/${ticket.responder_id}`,
+  //           {
+  //             method: 'GET',
+  //             headers: {
+  //               'Content-Type': 'application/json',
+  //               'Authorization': 'Basic ' + btoa('yVPm1NwCVI35Sz0uUEUS:X')
+  //             },
+  //           }
+  //         );
 
-  const getSeverityColor = (severity) => {
-    switch(severity) {
-      case 'critical': return 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-200';
-      case 'high': return 'bg-orange-100 text-orange-800 dark:bg-orange-900/50 dark:text-orange-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/50 dark:text-yellow-200';
-      case 'low': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/50 dark:text-blue-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
-    }
-  };
+  //         if (!response.ok) {
+  //           throw new Error(`HTTP error! status: ${response.status}`);
+  //         }
+
+  //         const data = await response.json();
+  //         setAgent(data.agent);
+  //       } catch (error) {
+  //         console.error('Error fetching agent details:', error);
+  //       }
+  //     }
+  //   };
+
+  //   fetchAgent();
+  // }, [ticket]);
+
+  // if (!ticket) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl">
-        <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 p-4">
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-            <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2 text-red-500" />
-            Incident Details
+            Ticket #{ticket.id}
           </h2>
           <button 
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+            className="text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-200"
           >
-            <FontAwesomeIcon icon={faTimes} size="lg" />
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
           </button>
         </div>
-
-        <div className="p-6">
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{incident.title}</h3>
-            <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${getSeverityColor(incident.severity)} mb-4`}>
-              {incident.severity.charAt(0).toUpperCase() + incident.severity.slice(1)} severity
+        <div className="p-4">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{ticket.title}</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Status</p>
+              <p className="font-medium text-gray-900 dark:text-white capitalize">{ticket.status}</p>
             </div>
-            <p className="text-gray-600 dark:text-gray-300">
-              Detailed description of the incident would appear here. This would include information about when it was detected, affected systems, and potential impact.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-              <div className="flex items-center mb-2">
-                <FontAwesomeIcon icon={faUser} className="text-gray-500 dark:text-gray-400 mr-2" />
-                <span className="font-medium text-gray-700 dark:text-gray-300">Assigned To</span>
-              </div>
-              <p className="text-gray-900 dark:text-white">{incident.assignedTo}</p>
-            </div> */}
-
-            <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
-              <div className="flex items-center mb-2">
-                <FontAwesomeIcon icon={faCalendarAlt} className="text-gray-500 dark:text-gray-400 mr-2" />
-                <span className="font-medium text-gray-700 dark:text-gray-300">Date Reported</span>
-              </div>
-              <p className="text-gray-900 dark:text-white">{incident.date}</p>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Priority</p>
+              <p className="font-medium text-gray-900 dark:text-white capitalize">{ticket.severity}</p>
             </div>
-          </div>
-
-          <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg mb-6">
-            <div className="flex items-center mb-2">
-              <FontAwesomeIcon icon={faClipboardList} className="text-gray-500 dark:text-gray-400 mr-2" />
-              <span className="font-medium text-gray-700 dark:text-gray-300">Status</span>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Created On</p>
+              <p className="font-medium text-gray-900 dark:text-white">{ticket.date}</p>
             </div>
-            <div className="flex items-center">
-              <span className={`px-3 py-1 rounded-full text-sm font-medium ${getSeverityColor(incident.severity)}`}>
-                {incident.status.replace('-', ' ').charAt(0).toUpperCase() + incident.status.replace('-', ' ').slice(1)}
-              </span>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Assigned To</p>
+              <p className="font-medium text-gray-900 dark:text-white">
+                {ticket.assignedTo}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Requested By</p>
+              <p className="font-medium text-gray-900 dark:text-white">{ticket.requester}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Due By</p>
+              <p className="font-medium text-gray-900 dark:text-white">{ticket.dueBy}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Category</p>
+              <p className="font-medium text-gray-900 dark:text-white">{ticket.category}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Type</p>
+              <p className="font-medium text-gray-900 dark:text-white">{ticket.type}</p>
             </div>
           </div>
-
-          <div className="flex justify-end space-x-3">
-            {/* <button className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">
-              Assign to me
-            </button> */}
-            <button onClick={onClose} className="px-4 py-2 bg-blue-600 rounded-md text-white hover:bg-blue-700">
-              Close
-            </button>
+          
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+            <h4 className="text-md font-semibold text-gray-900 dark:text-white mb-2">Description</h4>
+            <div
+              className="bg-gray-50 dark:bg-gray-700 p-3 rounded-md text-gray-700 dark:text-gray-300"
+              dangerouslySetInnerHTML={{ __html: ticket.description }}
+            />
           </div>
+        </div>
+        <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex justify-end">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Modal;
