@@ -91,10 +91,10 @@ import Modal from "./Modal.js"
 
 // FreshService API configuration
 const FRESH_SERVICE_API = {
-  BASE_URL: 'https://cloudthattechnologiespvtlt.freshservice.com/api/v2',
+  BASE_URL: process.env.REACT_APP_FRESH_SERVICE_BASE_URL,
   HEADERS: {
     'Content-Type': 'application/json',
-    'Authorization': 'Basic ' + btoa('yVPm1NwCVI35Sz0uUEUS:X') // Replace with your actual API key
+    'Authorization': 'Basic ' + btoa(`${process.env.REACT_APP_FRESH_SERVICE_API_KEY}:X`)
   }
 };
 

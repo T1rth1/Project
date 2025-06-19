@@ -10,6 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Modal from "./Modal.js"
+import Chatbot from './Chatbot.jsx';
 // Modal component for displaying ticket details
 // const Modal = ({ ticket, onClose }) => {
 //   if (!ticket) return null;
@@ -91,10 +92,10 @@ import Modal from "./Modal.js"
 
 // FreshService API configuration
 const FRESH_SERVICE_API = {
-  BASE_URL: 'https://cloudthattechnologiespvtlt.freshservice.com/api/v2',
+  BASE_URL: process.env.REACT_APP_FRESH_SERVICE_BASE_URL,
   HEADERS: {
     'Content-Type': 'application/json',
-    'Authorization': 'Basic ' + btoa('yVPm1NwCVI35Sz0uUEUS:X') // Replace with your actual API key
+    'Authorization': 'Basic ' + btoa(`${process.env.REACT_APP_FRESH_SERVICE_API_KEY}:X`)
   }
 };
 
@@ -340,7 +341,7 @@ export default function TicketManagement() {
     <div className="p-4">
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Ticket Management</h1>
+          <h1 className="text-2xl font-bold text-blue-600 dark:text-white">Ticket Management</h1>
           {isLoading && (
             <FontAwesomeIcon 
               icon={faSpinner} 
@@ -460,7 +461,7 @@ export default function TicketManagement() {
       <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-700">
+            <thead className="bg-purple-100 dark:bg-gray-700">
               <tr>
                 <th 
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer"
@@ -566,6 +567,9 @@ export default function TicketManagement() {
       {isModalOpen && (
         <Modal ticket={selectedTicket} onClose={() => setIsModalOpen(false)} />
       )}
+      <div>
+        <Chatbot/>
+      </div>
     </div>
   );
 }

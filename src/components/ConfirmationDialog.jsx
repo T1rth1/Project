@@ -57,18 +57,14 @@ export default function StatCards() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
-  // const BASE_URL = import.meta.env.VITE_FRESH_SERVICE_API_URL;
-  // const API_KEY = import.meta.env.VITE_FRESH_SERVICE_API_KEY;
   
-  // const API_KEY= 
-  // Fresh Service API configuration
   const FRESH_SERVICE_API = {
-    BASE_URL: 'https://cloudthattechnologiespvtlt.freshservice.com/api/v2',
-    HEADERS: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic ' + btoa('yVPm1NwCVI35Sz0uUEUS:X') // Replace with your actual API key or use environment variables
-    }
-  };
+  BASE_URL: process.env.REACT_APP_FRESH_SERVICE_BASE_URL,
+  HEADERS: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Basic ' + btoa(`${process.env.REACT_APP_FRESH_SERVICE_API_KEY}:X`)
+  }
+};
 
   useEffect(() => {
     fetchFreshServiceData();

@@ -8,12 +8,12 @@ const Modal = ({ ticket, onClose }) => {
   //     if (ticket && ticket.responder_id) {
   //       try {
   //         const response = await fetch(
-  //           `https://cloudthattechnologiespvtlt.freshservice.com/api/v2/agents/${ticket.responder_id}`,
+  //           `https://cloudthattecJKKJKJKKJKJKJhnologiespvtlt.freshservice.com/api/v2/agents/${ticket.responder_id}`,
   //           {
   //             method: 'GET',
   //             headers: {
   //               'Content-Type': 'application/json',
-  //               'Authorization': 'Basic ' + btoa('yVPm1NwCVI35Sz0uUEUS:X')
+  //               'Authorization': 'Basic ' + btoa('yVPm1NwCASASASASASAVI35Sz0uUEUS:X')
   //             },
   //           }
   //         );

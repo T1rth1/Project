@@ -8,7 +8,7 @@ export default function Events() {
     const fetchEvents = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://52zcqkb3ofajjnrfkma2serjzq0siukg.lambda-url.ap-south-1.on.aws/');
+        const response = await fetch('https://52zcqkb3ofajjnrfkma2serjzq0siukg./');
         if (!response.ok) {
           throw new Error('Failed to fetch security events');
         }
